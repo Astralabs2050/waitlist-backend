@@ -2,7 +2,9 @@ import express from "express";
 import { WaitListModel } from "../model/waitlist.model.js";
 
 const waitlistRouter = express.Router();
-
+waitlistRouter.get('/', (req, res)=>{
+res.send('working')
+})
 waitlistRouter.post("/wait-list/join", async function (req, res) {
   try {
     // Extract data from the request body
