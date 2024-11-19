@@ -28,7 +28,7 @@ mongoose.connect(dbconnectionString)
   });
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3002', 'https://celeb-frontend.vercel.app'], // Allow frontend port
+  origin: ['http://localhost:3000', 'http://localhost:3002', "https://www.astraverse.xyz","https://astra-v2.vercel.app"], // Allow frontend port
 }));
 
 app.use(bodyParser.json());
