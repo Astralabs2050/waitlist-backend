@@ -42,7 +42,7 @@ waitlistRouter.post("/wait-list/join", async function (req, res) {
     // Respond with status
     res.status(201).json({
       status: true,
-      message: "statusfully added to the waitlist",
+      message: "successfully added to the waitlist",
       data: savedEntry,
     });
   } catch (error) {
