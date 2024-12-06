@@ -1,5 +1,6 @@
 import express from "express";
 import { WaitListModel } from "../model/waitlist.model.js";
+import sendEmail from "../utils/sendMail.js";
 
 const waitlistRouter = express.Router();
 waitlistRouter.get('/', (req, res)=>{
@@ -56,5 +57,36 @@ waitlistRouter.post("/wait-list/join", async function (req, res) {
     });
   }
 });
+
+waitlistRouter.post("/test-mail",async(req,res)=>{
+  try{
+    console.log("req.body.mail",req.body.mail)
+    //test for the mail 
+    const {mail,subject,body} = req.body
+    const result = await sendEmail(mail,subject,body)
+    return res.json({
+      status:true,
+      message:"Email sent successfully",
+      data:result,
+    })
+  }catch(error){
+    return error
+  }
+})
+
+waitlistRouter.get("/get-waitlist-info", async (req, res)=>{
+  try {
+    // Count the total number of documents in the collection
+    const count = await WaitListModel.countDocuments();
+
+    // Fetch all user information
+    const users = await WaitListModel.find({}, { fullName: 1, email: 1, make: 1, link: 1, occasion: 1 });
+
+    return  res.json({ count, users });
+  } catch (error) {
+    console.error("Error fetching user count and information:", error);
+    throw new Error("Failed to fetch user count and information.");
+  }
+})
 
 export default waitlistRouter;
